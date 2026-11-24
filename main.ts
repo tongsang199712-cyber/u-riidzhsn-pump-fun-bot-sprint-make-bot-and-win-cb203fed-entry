@@ -23,8 +23,10 @@ import { runBot, type Batch, type BotState, type OrderInput, type Pubkey } from 
 const LAMPORTS = 1_000_000_000;
 // Curve fee (protocol + creator) charged on each side of a trade, as a fraction.
 const CURVE_FEE = 0.0125;
-// The 24h replay window, in seconds of block time, used only to pace the sweeper.
-const WINDOW_SECS = 86_400;
+// The replay window, in seconds of block time, used only to pace the sweeper.
+// The final window is 6h, so pace to 6h: in the dev window the pace saturates
+// early, and in the final window the sweeper still tops the count up in time.
+const WINDOW_SECS = 21_600;
 
 // --- tunables ---------------------------------------------------------------
 
@@ -58,7 +60,10 @@ const FADE_NET_SOL = -0.8;
 // Hard time limit, in slots held.
 const MAX_HOLD_SLOTS = 60;
 // Sweeper: target round-tripped coins by the end of the window, probe size.
-const TARGET_COINS = 30;
+// 21 sits just above the 20-coin guardrail: each probe round trip is a small
+// guaranteed loss (curve + tx fees on both sides), so the sweeper tops up
+// only as far as the bar needs, never further.
+const TARGET_COINS = 21;
 const PROBE_SOL = 0.03;
 
 // --- per-coin tape ----------------------------------------------------------

@@ -4,9 +4,9 @@
 // real bid show it immediately in the opening tape: several unrelated wallets
 // buying real size, the creator holding, no early dump, and the price already
 // ticking up off its create price. This bot buys only those launches, small
-// (0.1 SOL), and then lets the winners run: a wide take-profit with a trailing
+// (0.1 SOL), and then lets the winners run: a take-profit with a trailing
 // stop so a coin that keeps climbing pays for the many small losers, which are
-// cut fast at -7% or on a short time limit.
+// cut fast at -8% or on a short time limit.
 //
 // Every decision is a pure function of the batch stream: no clock, no
 // randomness, iteration only over insertion-ordered maps, so two runs agree
